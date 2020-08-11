@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  timeout: 5000
+  username: <%= ENV.fetch('DATABASE_USERNAME') %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD') %>
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+
+development:
+  <<: *default
+  database: web_logs_development
+
+test: &test
+  <<: *default
+  database: web_logs_test
+
+production:
+  <<: *default
+  database: web_logs

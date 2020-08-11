@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - 5432:5432
+    volumes:
+      - /private/var/docker/var-lib-postgres-web-logs:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=password
+
+  app:
+    build: .
+    depends_on:
+      - db
+    volumes:
+      - ./web_log_parser.rb/:/app/web_log_parser.rb
+      - ./parser.rb/:/app/parser.rb
+      - ./db/:/app/db/
+      - ./models/:/app/models/
+      - ./Gemfile:/app/Gemfile
+      - ./spec/:/app/spec/
+      - ./data/:/app/data/
+    environment:
+      - RACK_ENV=development
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=password
+      - DATABASE_HOST=db

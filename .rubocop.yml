@@ -1,0 +1,14 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'spec/fixtures/**/*'
+    - 'db/**/*'
+    - 'db/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - 'spec/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
